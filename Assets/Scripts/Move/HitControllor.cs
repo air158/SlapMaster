@@ -8,6 +8,7 @@ public class HitControllor : MonoBehaviour
     public CameraShake cameraShake;
     public CircleScaler HitDet;
     public Slider HP,durability;  //实例化一个Slider
+    public Slider Power;
     public Text Speed,Crit;
     public float hurt=2F;
     public int speedv=0;
@@ -24,13 +25,17 @@ public class HitControllor : MonoBehaviour
     public bool Hit = false,Back=false,txtFlag=false;
     public double HitDis,LeaveDis;
     float mxX=-10000000.0F,mxY=-10000000.00F;
+    float HPValue=1f,durabilityValue=1f;
+    string SpeedS,CritS;
     
     int idx=0,time=0;
     void Awake(){
         initialPosition = hand.transform.position;
         initialRotation = hand.transform.rotation;
+
         txt=gameObject.GetComponent<ReadText>();
         HitDet=gameObject.GetComponent<CircleScaler>();
+        
         HP.value = 1;  //Value的值介于0-1之间，且为浮点数
         Speed.resizeTextMinSize =300;
         Crit.resizeTextMinSize =300;
@@ -38,11 +43,78 @@ public class HitControllor : MonoBehaviour
     private void Update() {
         updataXY();
         updateRot();
+
+        updataPower();
+
         MoveHand(hand,targetGo.transform.position);
+
+        updateSpeed();
+
+        updateHP();
         if(txtFlag){
             changeTxt();
         }
+        updateTxt();
+    }
+    float Thp=0,Tdu=0,Tpow=0,Ttxt = 0;//每帧增加的插值
+    
+    void updateHP(){
+        Thp += Time.deltaTime*0.5f;
+        float hp = Mathf.Lerp(HP.value, HPValue, Thp);
+        HP.value = hp;
+        if(hp<=HPValue)Thp=0;
+
+        Tdu += Time.deltaTime*0.5f;
+        float du = Mathf.Lerp(durability.value, durabilityValue, Tdu);
+        durability.value = du;
+        if(du<=durabilityValue)Tdu=0;
+    }
+    int dir=1;
+    void updataPower(){
+        Tpow += Time.deltaTime*0.5f;
+        if(dir==1){
+            float pow = Mathf.Lerp(0, 1, Tpow);
+            Power.value = pow;
+            if(pow>=1){
+                Tpow=0;
+                dir=0;
+            }
+        }
+        else{
+            float pow = Mathf.Lerp(1, 0, Tpow);
+            Power.value = pow;
+            if(pow<=0){
+                Tpow=0;
+                dir=1;
+            }
+        }
         
+    }
+    Vector3 curpos,lastpos;
+    public float _speed;
+    void updateSpeed(){
+        curpos = hand.transform.position;//当前点
+		_speed = (Vector3.Magnitude(curpos - lastpos) / Time.deltaTime);//与上一个点做计算除去当前帧花的时间。
+		lastpos = curpos;//把当前点保存下一次用
+    }
+    void updateTxt(){
+        Ttxt += Time.deltaTime*0.9f;
+        //修改正方体在x轴上面的位移
+        int scale = (int)Mathf.Lerp(300, 10, Ttxt);
+        Speed.resizeTextMinSize = scale;
+        Crit.resizeTextMinSize = scale;
+        Crit.text = CritS;
+        Speed.text = SpeedS;
+        if(scale<=10){
+            txtFlag=false;
+            Ttxt=0;
+            Speed.resizeTextMinSize = 300;
+            Crit.resizeTextMinSize = 300;
+        }
+    }
+    void updateRot(){
+         float dis = Vector2.Distance(new Vector2(hand.transform.position.x,hand.transform.position.y), new Vector2(targetGo.transform.position.x,targetGo.transform.position.y));
+         hand.transform.localEulerAngles=new Vector3(hand.transform.localEulerAngles.x,180+90*dis,hand.transform.localEulerAngles.z);
     }
     void updataXY(){
         screenXY.x=(txt.y[idx]-txt.y[0])/dx+px;
@@ -52,21 +124,58 @@ public class HitControllor : MonoBehaviour
             idx++;
             idx%=txt.x.Count;
         }
+    }
+    
+    void changeHP(){
+        float value=Power.value;
+        if(value>=0.6&&value<=0.85){
+            if(value>=0.68&&value<=0.78){
+                hurt=10;
+                StartCoroutine(cameraShake.Shake(0.15f, 0.1f));
+            }
+            else{
+                hurt=6;
+                StartCoroutine(cameraShake.Shake(0.1f, 0.05f));
+            }
+        }
+        else{
+            hurt=2;
+            StartCoroutine(cameraShake.Shake(0.1f, 0.025f));
+        } 
+        hurt+=_speed;
+        hurt*=Random.Range(0.9f, 1.1f);
         
+        durabilityValue = durabilityValue - hurt*0.1f; 
+        if(durability.value<=0.1f||hurt==10){
+            if(hurt==10)
+                HPValue = HPValue - 1.5f*0.1f; 
+            else
+                HPValue = HPValue - 0.1f;
+
+            durabilityValue=1f;
+        }
     }
-    void updateRot(){
-         float dis = Vector2.Distance(new Vector2(hand.transform.position.x,hand.transform.position.y), new Vector2(targetGo.transform.position.x,targetGo.transform.position.y));
-         hand.transform.localEulerAngles=new Vector3(hand.transform.localEulerAngles.x,180+90*dis,hand.transform.localEulerAngles.z);
+    void changeSpeed(){
+        speedv=(int)_speed;
+        // speedv=Random.Range(1, 12);
     }
+    void changeTxt(){
+        CritS = "Crit! "+(int)hurt*99;
+        SpeedS = "SPEED: "+speedv+"km/h";
+    }
+    void changeAni(){
+        if(Hit){
+            animator.SetTrigger("Hit");
+        }
+    }
+
     void MoveHand(GameObject handGo,Vector3 targetPos){
         // autoMove(handGo,targetPos);
         handMove(handGo,targetPos);
         
         //判定是否到达目标点
-        // float dis = Vector3.Distance (handGo.transform.position, targetPos);
         float dis = Vector2.Distance(new Vector2(handGo.transform.position.x,handGo.transform.position.y), new Vector2(targetPos.x,targetPos.y));
         if (dis <= HitDis) {
-            Debug.Log ( "到达目标点" +Hit+initialPosition);
             mxX=screenXY.x;
             mxY=screenXY.y;
             if(!Back){
@@ -74,6 +183,7 @@ public class HitControllor : MonoBehaviour
                 Back=true;
                 txtFlag=true;
                 changeAni();
+                changeSpeed();
                 changeHP();
             }
         }
@@ -87,7 +197,6 @@ public class HitControllor : MonoBehaviour
         if(mxX>screenXY.x)screenXY.x=mxX;
         if(mxY>screenXY.y)screenXY.y=mxY;
         Vector3 worldPos = new Vector3(screenPos.x, screenPos.y,0)+initialPosition;
-        // Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, Camera.main.nearClipPlane));
         float distance = Vector2.Distance(new Vector2(worldPos.x,worldPos.y), new Vector2(target.x,target.y));
         Vector3 direction = (worldPos - target).normalized;
         return target + direction * distance;
@@ -109,49 +218,5 @@ public class HitControllor : MonoBehaviour
         //弧形插值
         handGo.transform.position = Vector3.Slerp (start, end, Time.deltaTime * speed );
         handGo.transform.position += center;
-        // handGo.transform.position=new Vector3(worldPos.x,worldPos.y,handGo.transform.position.z);
-    }
-    void changeAni(){
-        if(Hit){
-            animator.SetTrigger("Hit");
-        }
-    }
-    void changeHP(){
-        float value=HitDet.scaleFactor;
-        if(value>=0.4&&value<=0.8){
-            hurt=10;
-            StartCoroutine(cameraShake.Shake(0.15f, 0.1f));
-        }
-        else{
-            hurt=2;
-            StartCoroutine(cameraShake.Shake(0.1f, 0.05f));
-        } 
-        hurt+=Random.Range(0f, 1f);
-        speedv=Random.Range(1, 12);
-        durability.value = durability.value - hurt*0.1f; 
-        if(durability.value<=0.1f){
-            if(hurt==10)
-                HP.value = HP.value - 1.5f*0.1f; 
-            else
-                HP.value = HP.value - 0.1f;
-
-            durability.value=1f;
-        }
-    }
-    float t = 0;//每帧增加的插值
-    void changeTxt(){
-        t += Time.deltaTime*0.9f;
-        //修改正方体在x轴上面的位移
-        int scale = (int)Mathf.Lerp(300, 10, t);
-        Speed.resizeTextMinSize = scale;
-        Crit.resizeTextMinSize = scale;
-        Crit.text = "Crit! "+(int)hurt*99;
-        Speed.text = "SPEED: "+speedv+"km/h";
-        if(scale<=10){
-            txtFlag=false;
-            t=0;
-            Speed.resizeTextMinSize = 300;
-            Crit.resizeTextMinSize = 300;
-        }
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class HitControllor : MonoBehaviour
 {
+    public bool useiOS=true;
     public EventScript ios;
     public CameraShake cameraShake;
     public CircleScaler HitDet;
@@ -21,15 +22,18 @@ public class HitControllor : MonoBehaviour
     public Animator animator;
     public float value,speed;
     public Vector2 screenXY;
-    private Vector3 initialPosition;
-    private Quaternion initialRotation;
     public bool Hit = false,Back=false,txtFlag=false;
     public double HitDis,LeaveDis;
+    public AudioSource HitMusic;
+
     float mxX=-10000000.0F,mxY=-10000000.00F;
     float HPValue=1f,durabilityValue=1f;
     string SpeedS,CritS;
-    
+    Vector3 initialPosition;
+    Quaternion initialRotation;
     int idx=0,time=0;
+    float Thp=0,Tdu=0,Tpow=0,Ttxt = 0;//每帧增加的插值
+
     void Awake(){
         initialPosition = hand.transform.position;
         initialRotation = hand.transform.rotation;
@@ -58,7 +62,6 @@ public class HitControllor : MonoBehaviour
         }
         updateTxt();
     }
-    float Thp=0,Tdu=0,Tpow=0,Ttxt = 0;//每帧增加的插值
     
     void updateHP(){
         Thp += Time.deltaTime*0.5f;
@@ -119,14 +122,20 @@ public class HitControllor : MonoBehaviour
          hand.transform.localEulerAngles=new Vector3(hand.transform.localEulerAngles.x,180+90*dis,hand.transform.localEulerAngles.z);
     }
     void updataXY(){
-        // //ReadFromTxt
-        // screenXY.x=(txt.y[idx]-txt.y[0])/dx+px;
-        // screenXY.y=(txt.x[idx]-txt.x[0])/dy+py;
         
-        //ReadFromiOS
-        Vector2 dxdy=ios.ReaddXdY();
-        screenXY.x=(dxdy.y)/dx+px;
-        screenXY.y=(dxdy.x)/dy+py;
+        if(useiOS){
+            //ReadFromiOS
+            dx=0f;
+            Vector2 dxdy=ios.ReaddXdY();
+            screenXY.x=(dxdy.y)/dx+px;
+            screenXY.y=(dxdy.x)/dy+py;
+        }
+        else{
+            //ReadFromTxt
+            px=-0.7f;
+            screenXY.x=(txt.y[idx]-txt.y[0])/dx+px;
+            screenXY.y=(txt.x[idx]-txt.x[0])/dy+py;
+        }
 
         time++;
         if(time%2==0){
@@ -140,16 +149,19 @@ public class HitControllor : MonoBehaviour
         if(value>=0.6&&value<=0.85){
             if(value>=0.68&&value<=0.78){
                 hurt=10;
-                StartCoroutine(cameraShake.Shake(0.15f, 0.1f));
+                setMusicVolume(1f);
+                StartCoroutine(cameraShake.Shake(0.15f, 0.15f));
             }
             else{
                 hurt=6;
-                StartCoroutine(cameraShake.Shake(0.1f, 0.05f));
+                setMusicVolume(0.6f);
+                StartCoroutine(cameraShake.Shake(0.1f, 0.1f));
             }
         }
         else{
             hurt=2;
-            StartCoroutine(cameraShake.Shake(0.1f, 0.025f));
+            setMusicVolume(0.2f);
+            StartCoroutine(cameraShake.Shake(0.1f, 0.05f));
         } 
         hurt+=_speed;
         hurt*=Random.Range(0.9f, 1.1f);
@@ -177,6 +189,25 @@ public class HitControllor : MonoBehaviour
             animator.SetTrigger("Hit");
         }
     }
+    void PlayHitMusic(){
+        if (HitMusic!=null&&!HitMusic.isPlaying)
+        {
+            HitMusic.Play();
+        }
+    }
+    void StopHitMusic(){
+        if (HitMusic!=null&&!HitMusic.isPlaying)
+        {
+            HitMusic.Stop();
+        }
+    }
+    void setMusicVolume(float volume)
+    {
+        if (HitMusic != null && !HitMusic.isPlaying)
+        {
+            HitMusic.volume = volume;
+        }
+    }
 
     void MoveHand(GameObject handGo,Vector3 targetPos){
         // autoMove(handGo,targetPos);
@@ -185,12 +216,13 @@ public class HitControllor : MonoBehaviour
         //判定是否到达目标点
         float dis = Vector2.Distance(new Vector2(handGo.transform.position.x,handGo.transform.position.y), new Vector2(targetPos.x,targetPos.y));
         if (dis <= HitDis) {
-            mxX=screenXY.x;
-            mxY=screenXY.y;
+            // mxX=screenXY.x;
+            // mxY=screenXY.y;
             if(!Back){
                 Hit=true;
                 Back=true;
                 txtFlag=true;
+                PlayHitMusic();
                 changeAni();
                 changeSpeed();
                 changeHP();

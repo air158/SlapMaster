@@ -26,6 +26,8 @@ public class HitControllor : MonoBehaviour
     public double HitDis,LeaveDis;
     public AudioSource HitMusic;
 
+    GameObject HitGo;
+
     float mxX=-10000000.0F,mxY=-10000000.00F;
     float HPValue=1f,durabilityValue=1f;
     string SpeedS,CritS;
@@ -57,6 +59,7 @@ public class HitControllor : MonoBehaviour
         updateSpeed();
 
         updateHP();
+
         if(txtFlag){
             changeTxt();
         }
@@ -103,7 +106,9 @@ public class HitControllor : MonoBehaviour
 		lastpos = curpos;//把当前点保存下一次用
     }
     void updateTxt(){
-        Ttxt += Time.deltaTime*0.9f;
+        if(txtFlag==true){
+            Ttxt += Time.deltaTime*0.9f;
+        }
         //修改正方体在x轴上面的位移
         int scale = (int)Mathf.Lerp(300, 10, Ttxt);
         Speed.resizeTextMinSize = scale;
@@ -143,38 +148,84 @@ public class HitControllor : MonoBehaviour
             idx%=txt.x.Count;
         }
     }
-    
-    void changeHP(){
+
+    void MoveHand(GameObject handGo,Vector3 targetPos){
+        // autoMove(handGo,targetPos);
+        handMove(handGo,targetPos);
+        
+        //判定是否到达目标点
+        float dis = Vector2.Distance(new Vector2(handGo.transform.position.x,handGo.transform.position.y), new Vector2(targetPos.x,targetPos.y));
+        if (dis <= HitDis) {
+            // mxX=screenXY.x;
+            // mxY=screenXY.y;
+            if(!Back){
+                Hit=true;
+                Back=true;
+                txtFlag=true;
+                changeHurt();
+                changeHitMusic();
+                changeCameraShake();
+                changeHitGo();
+                changeAni();
+                changeSpeed();
+                changeHP();
+            }
+        }
+        else if(dis >= LeaveDis){
+            Hit=false;
+            Back=false;
+        }
+    }
+    void changeHurt(){
         float value=Power.value;
         if(value>=0.6&&value<=0.85){
             if(value>=0.68&&value<=0.78){
                 hurt=10;
-                setMusicVolume(1f);
-                StartCoroutine(cameraShake.Shake(0.15f, 0.15f));
             }
             else{
                 hurt=6;
-                setMusicVolume(0.6f);
-                StartCoroutine(cameraShake.Shake(0.1f, 0.1f));
             }
         }
         else{
             hurt=2;
-            setMusicVolume(0.2f);
-            StartCoroutine(cameraShake.Shake(0.1f, 0.05f));
         } 
-        hurt+=_speed;
-        hurt*=Random.Range(0.9f, 1.1f);
-        
-        durabilityValue = durabilityValue - hurt*0.1f; 
-        if(durability.value<=0.1f||hurt==10){
-            if(hurt==10)
-                HPValue = HPValue - 1.5f*0.1f; 
-            else
-                HPValue = HPValue - 0.1f;
-
-            durabilityValue=1f;
+    }
+    
+    void changeCameraShake(){
+        if(hurt==10){
+            StartCoroutine(cameraShake.Shake(0.15f, 0.15f));
         }
+        else if(hurt==6){
+            StartCoroutine(cameraShake.Shake(0.1f, 0.1f));
+        }
+        else{
+            StartCoroutine(cameraShake.Shake(0.1f, 0.05f));
+        }
+    }
+    void changeHitGo(){
+        GameObject.Destroy(HitGo);
+        if(hurt==10){
+            HitGo = Resources.Load("Perfabs/Hit10") as GameObject;
+        }
+        else if(hurt==6){
+            HitGo = Resources.Load("Perfabs/Hit6") as GameObject;
+        }
+        else{
+            HitGo = Resources.Load("Perfabs/Hit2") as GameObject;
+        }
+        GameObject.Instantiate(HitGo);
+    }
+    void changeHitMusic(){
+        if(hurt==10){
+            setMusicVolume(1f);
+        }
+        else if(hurt==6){
+            setMusicVolume(0.6f);
+        }
+        else{
+            setMusicVolume(0.2f);
+        }
+        PlayHitMusic();
     }
     void changeSpeed(){
         speedv=(int)_speed;
@@ -189,6 +240,19 @@ public class HitControllor : MonoBehaviour
             animator.SetTrigger("Hit");
         }
     }
+    void changeHP(){
+        float hurtvalue=(hurt+speed)*Random.Range(0.9f, 1.1f);
+        durabilityValue = durabilityValue - hurtvalue*0.1f; 
+        if(durability.value<=0.1f||hurt==10){
+            if(hurt==10)
+                HPValue = HPValue - 1.5f*0.1f; 
+            else
+                HPValue = HPValue - 0.1f;
+            durabilityValue=1f;
+        }
+    }
+
+
     void PlayHitMusic(){
         if (HitMusic!=null&&!HitMusic.isPlaying)
         {
@@ -209,30 +273,7 @@ public class HitControllor : MonoBehaviour
         }
     }
 
-    void MoveHand(GameObject handGo,Vector3 targetPos){
-        // autoMove(handGo,targetPos);
-        handMove(handGo,targetPos);
-        
-        //判定是否到达目标点
-        float dis = Vector2.Distance(new Vector2(handGo.transform.position.x,handGo.transform.position.y), new Vector2(targetPos.x,targetPos.y));
-        if (dis <= HitDis) {
-            // mxX=screenXY.x;
-            // mxY=screenXY.y;
-            if(!Back){
-                Hit=true;
-                Back=true;
-                txtFlag=true;
-                PlayHitMusic();
-                changeAni();
-                changeSpeed();
-                changeHP();
-            }
-        }
-        else if(dis >= LeaveDis){
-            Hit=false;
-            Back=false;
-        }
-    }
+    
     Vector3 CalculatePosition(Vector2 screenPos, Vector3 target)
     {
         if(mxX>screenXY.x)screenXY.x=mxX;

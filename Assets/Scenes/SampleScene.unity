@@ -2646,8 +2646,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bab84c9d9ac3fa342a3650f52b5bafd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ios: {fileID: 0}
   cameraShake: {fileID: 330585548}
-  HitDet: {fileID: 1485287466}
+  HitDet: {fileID: 0}
   HP: {fileID: 1220457643}
   durability: {fileID: 1161229623}
   Power: {fileID: 8444944}
@@ -2655,7 +2656,7 @@ MonoBehaviour:
   Crit: {fileID: 1764672951}
   hurt: 1
   speedv: 0
-  px: -0.7
+  px: 0
   py: 0
   dx: -500
   dy: 300
@@ -2681,7 +2682,7 @@ Transform:
   m_GameObject: {fileID: 1485287462}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0.15858793, z: -2.669571}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2710,15 +2711,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1485287462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6f015394a1cc0840bd6831577fcc6db, type: 3}
+  m_Script: {fileID: 11500000, guid: 3504b05c924847f4499f9e11339191ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circle: {fileID: 756517149}
-  value: 0
-  speed: 0.025
-  scaleFactor: 0
-  minScale: 0.1
-  maxScale: 1
+  msgFromiOS: -1
+  x: []
+  y: []
+  listSize: 0
+  idx: 0
 --- !u!1 &1505760316
 GameObject:
   m_ObjectHideFlags: 0

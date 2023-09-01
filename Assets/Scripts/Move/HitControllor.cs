@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class HitControllor : MonoBehaviour
 {
+    public EventScript ios;
     public CameraShake cameraShake;
     public CircleScaler HitDet;
     public Slider HP,durability;  //实例化一个Slider
@@ -35,6 +36,7 @@ public class HitControllor : MonoBehaviour
 
         txt=gameObject.GetComponent<ReadText>();
         HitDet=gameObject.GetComponent<CircleScaler>();
+        ios=gameObject.GetComponent<EventScript>();
         
         HP.value = 1;  //Value的值介于0-1之间，且为浮点数
         Speed.resizeTextMinSize =300;
@@ -117,8 +119,15 @@ public class HitControllor : MonoBehaviour
          hand.transform.localEulerAngles=new Vector3(hand.transform.localEulerAngles.x,180+90*dis,hand.transform.localEulerAngles.z);
     }
     void updataXY(){
-        screenXY.x=(txt.y[idx]-txt.y[0])/dx+px;
-        screenXY.y=(txt.x[idx]-txt.x[0])/dy+py;
+        // //ReadFromTxt
+        // screenXY.x=(txt.y[idx]-txt.y[0])/dx+px;
+        // screenXY.y=(txt.x[idx]-txt.x[0])/dy+py;
+        
+        //ReadFromiOS
+        Vector2 dxdy=ios.ReaddXdY();
+        screenXY.x=(dxdy.y)/dx+px;
+        screenXY.y=(dxdy.x)/dy+py;
+
         time++;
         if(time%2==0){
             idx++;

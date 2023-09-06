@@ -24,6 +24,7 @@ public class HitControllor : MonoBehaviour
     public Animator animator;
     public float value,speed;
     public Vector2 screenXY;
+    public Vector2 dxdy;
     public bool Hit = false,Back=false,txtFlag=false;
     public double HitDis,LeaveDis;
     
@@ -139,13 +140,13 @@ public class HitControllor : MonoBehaviour
         if(useiOS){
             //ReadFromiOS
             // dx=0f;
-            Vector2 dxdy=ios.ReaddXdY();
+            dxdy=ios.ReaddXdY();
             // screenXY.x=(w-w*dxdy.x)/dx;
             // screenXY.y=(h*dxdy.y)/dy;
             // screenXY.x=(dxdy.y)/dx+px;
             // screenXY.y=(dxdy.x)/dy+py;
-            screenXY.x=(txt.y[idx]-txt.y[0])/dx+px;
-            screenXY.y=(txt.x[idx]-txt.x[0])/dy+py;
+            screenXY.x=(dxdy.y)/dx+px;
+            screenXY.y=(dxdy.x)/dy+py;
         }
         else{
             //ReadFromTxt

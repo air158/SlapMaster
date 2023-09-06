@@ -65,8 +65,8 @@ public class EventScript : MonoBehaviour {
     public Vector2 ReaddXdY(){
         Vector2 res=new Vector2(0,0);
         if(listSize>0){
-            res.x=x[idx]-x[0];
-            res.y=y[idx]-y[0];
+            res.x=x[idx];
+            res.y=y[idx];
             idx++;
             if(idx>listSize){
                 idx=listSize-1;

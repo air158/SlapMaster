@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class HitControllor : MonoBehaviour
 {
     public bool useiOS=true;
+    public UIScaler critb;
     public EventScript ios;
     public CameraShake cameraShake;
     public MusicController musicController;
@@ -23,6 +24,7 @@ public class HitControllor : MonoBehaviour
     public Animator animator;
     public float value,speed;
     public Vector2 screenXY;
+    public Vector2 dxdy;
     public bool Hit = false,Back=false,txtFlag=false;
     public double HitDis,LeaveDis;
     
@@ -34,7 +36,7 @@ public class HitControllor : MonoBehaviour
     string SpeedS,CritS;
     Vector3 initialPosition;
     Quaternion initialRotation;
-    int idx=0,time=0;
+    public int idx=0,time=0;
     float Thp=0,Tdu=0,Tpow=0,Ttxt = 0;//每帧增加的插值
 
     void Awake(){
@@ -47,8 +49,6 @@ public class HitControllor : MonoBehaviour
         musicController=gameObject.GetComponent<MusicController>();
         
         HP.value = 1;  //Value的值介于0-1之间，且为浮点数
-        Speed.resizeTextMinSize =300;
-        Crit.resizeTextMinSize =300;
     }
     private void Update() {
         updataXY();
@@ -62,10 +62,7 @@ public class HitControllor : MonoBehaviour
 
         updateHP();
 
-        if(txtFlag){
-            changeTxt();
-        }
-        updateTxt();
+        // updateTxt();
     }
     
     void updateHP(){
@@ -106,40 +103,58 @@ public class HitControllor : MonoBehaviour
         curpos = hand.transform.position;//当前点
 		_speed = (Vector3.Magnitude(curpos - lastpos) / Time.deltaTime);//与上一个点做计算除去当前帧花的时间。
 		lastpos = curpos;//把当前点保存下一次用
-    }
-    void updateTxt(){
-        if(txtFlag==true){
-            Ttxt += Time.deltaTime*0.9f;
+
+        speedv=(int)_speed;
+        if(speedv!=0){
+            SpeedS = ""+speedv+"km/h";
+            Speed.text = SpeedS;
         }
-        //修改正方体在x轴上面的位移
-        int scale = (int)Mathf.Lerp(300, 10, Ttxt);
-        Speed.resizeTextMinSize = scale;
-        Crit.resizeTextMinSize = scale;
-        Crit.text = CritS;
-        Speed.text = SpeedS;
-        if(scale<=10){
-            txtFlag=false;
-            Ttxt=0;
-            Speed.resizeTextMinSize = 300;
-            Crit.resizeTextMinSize = 300;
-        }
+        
     }
+    // void updateTxt(){
+    //     // if(txtFlag==true){
+    //     //     Ttxt += Time.deltaTime*0.9f;
+    //     // }
+    //     // //修改正方体在x轴上面的位移
+    //     // int scale = (int)Mathf.Lerp(300, 10, Ttxt);
+    //     // Speed.resizeTextMinSize = scale;
+    //     // Crit.resizeTextMinSize = scale;
+    //     Crit.text = CritS;
+    //     Speed.text = SpeedS;
+    //     // if(scale<=10){
+    //     //     txtFlag=false;
+    //     //     Ttxt=0;
+    //     //     Speed.resizeTextMinSize = 300;
+    //     //     Crit.resizeTextMinSize = 300;
+    //     // }
+    // }
     void updateRot(){
          float dis = Vector2.Distance(new Vector2(hand.transform.position.x,hand.transform.position.y), new Vector2(targetGo.transform.position.x,targetGo.transform.position.y));
          hand.transform.localEulerAngles=new Vector3(hand.transform.localEulerAngles.x,180+90*dis,hand.transform.localEulerAngles.z);
     }
     void updataXY(){
+
+        float w=(float)UnityEngine.Screen.width;
+        float h=(float)UnityEngine.Screen.height;
         
         if(useiOS){
             //ReadFromiOS
-            dx=0f;
-            Vector2 dxdy=ios.ReaddXdY();
+            // dx=0f;
+            dxdy=ios.ReaddXdY();
+            // screenXY.x=(w-w*dxdy.x)/dx;
+            // screenXY.y=(h*dxdy.y)/dy;
+            // screenXY.x=(dxdy.y)/dx+px;
+            // screenXY.y=(dxdy.x)/dy+py;
             screenXY.x=(dxdy.y)/dx+px;
             screenXY.y=(dxdy.x)/dy+py;
         }
         else{
             //ReadFromTxt
-            px=-0.7f;
+            // px=-0.7f;
+            // dx=-500;
+            // dy=300;
+            // screenXY.x=(w-w*txt.y[idx])/dx;
+            // screenXY.y=(h*txt.x[idx])/dy;
             screenXY.x=(txt.y[idx]-txt.y[0])/dx+px;
             screenXY.y=(txt.x[idx]-txt.x[0])/dy+py;
         }
@@ -158,8 +173,8 @@ public class HitControllor : MonoBehaviour
         //判定是否到达目标点
         float dis = Vector2.Distance(new Vector2(handGo.transform.position.x,handGo.transform.position.y), new Vector2(targetPos.x,targetPos.y));
         if (dis <= HitDis) {
-            // mxX=screenXY.x;
-            // mxY=screenXY.y;
+            mxX=screenXY.x;
+            mxY=screenXY.y;
             if(!Back){
                 Hit=true;
                 Back=true;
@@ -173,11 +188,22 @@ public class HitControllor : MonoBehaviour
                 changeAni();
                 changeSpeed();
                 changeHP();
+                changeTxt();
+                changeCrit();
             }
         }
         else if(dis >= LeaveDis){
             Hit=false;
             Back=false;
+        }
+    }
+    void changeCrit(){
+        if(critb){
+            // speedb.display();
+            critb.display();
+        }
+        else{
+            Debug.Log("critb disappered!");
         }
     }
     void changeHurt(){
@@ -221,12 +247,12 @@ public class HitControllor : MonoBehaviour
     }
     
     void changeSpeed(){
-        speedv=(int)_speed;
+        // speedv=(int)_speed;
         // speedv=Random.Range(1, 12);
     }
     void changeTxt(){
-        CritS = "Crit! "+(int)hurt*99;
-        SpeedS = "SPEED: "+speedv+"km/h";
+        CritS = ""+(int)hurt*99;
+        Crit.text = CritS;
     }
     void changeAni(){
         if(Hit){
@@ -249,11 +275,12 @@ public class HitControllor : MonoBehaviour
     
 
     
-    Vector3 CalculatePosition(Vector2 screenPos, Vector3 target)
+    Vector3 CalculatePosition(Vector3 target)
     {
         if(mxX>screenXY.x)screenXY.x=mxX;
         if(mxY>screenXY.y)screenXY.y=mxY;
-        Vector3 worldPos = new Vector3(screenPos.x, screenPos.y,0)+initialPosition;
+        Vector3 worldPos = new Vector3(screenXY.x, screenXY.y,0)+initialPosition;
+        // Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenXY.x, screenXY.y, Camera.main.nearClipPlane))+initialPosition;
         float distance = Vector2.Distance(new Vector2(worldPos.x,worldPos.y), new Vector2(target.x,target.y));
         Vector3 direction = (worldPos - target).normalized;
         return target + direction * distance;
@@ -261,7 +288,7 @@ public class HitControllor : MonoBehaviour
     void handMove(GameObject handGo,Vector3 targetPos){
         float step = speed * Time.deltaTime;
         // 使用worldPoint作为目标物体的位置
-        handGo.transform.position = Vector3.MoveTowards(handGo.transform.position, CalculatePosition(screenXY,targetPos), step);
+        handGo.transform.position = Vector3.MoveTowards(handGo.transform.position, CalculatePosition(targetPos), step);
     }
 
     void autoMove(GameObject handGo,Vector3 targetPos){

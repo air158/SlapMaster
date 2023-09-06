@@ -5,14 +5,16 @@ using System.Collections.Generic;
 
 public class ReadText : MonoBehaviour
 {
+    public string name = "gesture";
     // 定义一个数组，用于存储最后两个浮点数
     public List<float> x = new List<float>(),y = new List<float>();
 
     // 定义一个字符串变量，用于存储文件的路径
-    private string filePath = "Assets/data/gesture.txt"; // 这里你可以根据你的文件位置修改
+    private string filePath = ""; // 这里你可以根据你的文件位置修改
 
     void Awake()
     {
+        filePath = "Assets/data/"+name+".txt";
         // 调用ReadFile方法，读取文件内容
         ReadFile(filePath);
     }
@@ -31,28 +33,33 @@ public class ReadText : MonoBehaviour
         // 使用while循环，逐行读取文件，直到文件末尾
         while ((line = reader.ReadLine()) != null)
         {
-            // 行号加一
-            lineNumber++;
 
-            // 判断当前行是否是偶数行
-            if (lineNumber % 2 == 0)
-            {
-                // 如果是偶数行，就对当前行的内容进行处理
-
-                // 去掉两端的方括号
-                line = line.Trim('[', ']');
-
-                // 按照逗号分割字符串，得到一个字符串数组
-                string[] numbers = line.Split(',');
-
-                string numx=numbers[numbers.Length - 2].Trim(' ','(', ')');
-                string numy=numbers[numbers.Length - 1].Trim(' ','(', ')');
-
-                // 取出最后两个元素，转换为浮点数，并存储到数组中
-                x.Add(float.Parse(numx));
-                y.Add(float.Parse(numy));
-                
+            if(!line.Contains('[')){
+                continue;
             }
+
+            // 按照逗号分割字符串，得到一个字符串数组
+            string[] numbers = line.Split(',');
+
+            string numx=numbers[numbers.Length - 2].Trim(' ','(', ')','[', ']',',');
+            string numy=numbers[numbers.Length - 1].Trim(' ','(', ')','[', ']',',');
+
+            float numberx=0,numbery=0;
+
+            // Debug.Log(numx+" "+numy);
+            if(float.TryParse(numx, out numberx)&&float.TryParse(numy, out numbery))
+            {
+                //转换成功, 输出数字
+                Debug.Log ("数字是:" + numberx+" "+numbery);
+                // 取出最后两个元素，转换为浮点数，并存储到数组中
+                x.Add(numberx);
+                y.Add(numbery);
+            }else{
+                //转换失败, 字符串不是只是数字
+                Debug.Log("这个不是数字");
+            }
+
+            
         }
 
         // 关闭文件流

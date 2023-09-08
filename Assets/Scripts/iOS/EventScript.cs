@@ -13,7 +13,7 @@ using UnityEngine.SceneManagement;
 public class EventScript : MonoBehaviour {
     public string msgFromiOS="-1";
     // 定义一个数组，用于存储最后两个浮点数
-    public List<float> x = new List<float>(),y = new List<float>();
+    public float x = 0,y = 0;
     public int listSize=0,idx=0;
 
 
@@ -65,26 +65,18 @@ public class EventScript : MonoBehaviour {
             //转换成功, 输出数字
             Debug.Log ("数字是:" + numberx+" "+numbery);
             // 取出最后两个元素，转换为浮点数，并存储到数组中
-            x.Add(numberx);
-            y.Add(numbery);
+            x=numberx;
+            y=numbery;
         }else{
             //转换失败, 字符串不是只是数字
             Debug.Log("这个不是数字");
         }
-
-        listSize=x.Count;
     }
 
     public Vector2 ReaddXdY(){
         Vector2 res=new Vector2(0,0);
-        if(listSize>0){
-            res.x=x[idx];
-            res.y=y[idx];
-            idx++;
-            if(idx>listSize){
-                idx=listSize-1;
-            }
-        }
+            res.x=x;
+            res.y=y;
         return res;
     }
 

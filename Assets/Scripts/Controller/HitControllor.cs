@@ -187,7 +187,7 @@ public class HitControllor : MonoBehaviour
         
         //判定是否到达目标点
         float dis = Vector2.Distance(new Vector2(handGo.transform.position.x,handGo.transform.position.y), new Vector2(targetPos.x,targetPos.y));
-        if (dis <= HitDis) {
+        if (dis <= HitDis || handGo.transform.position.x<=targetPos.x) {
             mxX=screenXY.x;
             mxY=screenXY.y;
             if(!Back){
@@ -207,7 +207,7 @@ public class HitControllor : MonoBehaviour
                 changeCrit();
             }
         }
-        else if(dis >= LeaveDis){
+        else if(dis >= LeaveDis && handGo.transform.position.x>targetPos.x){
             Hit=false;
             Back=false;
         }

@@ -20,8 +20,8 @@ public class DebugController : MonoBehaviour
     void Update()
     {
         if(debugFlag){
-            debugtext.text="iosxy: "+hitControllor.dxdy.x+","+hitControllor.dxdy.y+"\n"+"senXY: "+hitControllor.screenXY.x+","+hitControllor.screenXY.y+"\n"+"handxy: "+hand.transform.position.x+","+hand.transform.position.y;
-            msgtxt.text=eventScript.msgFromiOS;
+            debugtext.text="senXY: "+hitControllor.screenXY.x+","+hitControllor.screenXY.y+"\n"+"handxy: "+hand.transform.position.x+","+hand.transform.position.y;
+            msgtxt.text="iosxy: "+hitControllor.IOSdxdy.x+","+hitControllor.IOSdxdy.y+"\n"+"txtxy: "+hitControllor.TXTdxdy.x+","+hitControllor.TXTdxdy.y+"\n"+eventScript.msgFromiOS;
         }
         else{
             debugtext.text="";

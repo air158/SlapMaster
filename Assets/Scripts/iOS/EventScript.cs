@@ -47,17 +47,30 @@ public class EventScript : MonoBehaviour {
     }
 
     void ProcessMsg(string line){
-        line = line.Trim('[', ']');
+        if(!line.Contains('[')){
+            return;
+        }
 
         // 按照逗号分割字符串，得到一个字符串数组
         string[] numbers = line.Split(',');
 
-        string numx=numbers[numbers.Length - 2].Trim(' ','(', ')');
-        string numy=numbers[numbers.Length - 1].Trim(' ','(', ')');
+        string numx=numbers[numbers.Length - 2].Trim(' ','(', ')','[', ']',',');
+        string numy=numbers[numbers.Length - 1].Trim(' ','(', ')','[', ']',',');
 
-        // 取出最后两个元素，转换为浮点数，并存储到数组中
-        x.Add(float.Parse(numx));
-        y.Add(float.Parse(numy));
+        float numberx=0,numbery=0;
+
+        // Debug.Log(numx+" "+numy);
+        if(float.TryParse(numx, out numberx)&&float.TryParse(numy, out numbery))
+        {
+            //转换成功, 输出数字
+            Debug.Log ("数字是:" + numberx+" "+numbery);
+            // 取出最后两个元素，转换为浮点数，并存储到数组中
+            x.Add(numberx);
+            y.Add(numbery);
+        }else{
+            //转换失败, 字符串不是只是数字
+            Debug.Log("这个不是数字");
+        }
 
         listSize=x.Count;
     }
@@ -65,8 +78,8 @@ public class EventScript : MonoBehaviour {
     public Vector2 ReaddXdY(){
         Vector2 res=new Vector2(0,0);
         if(listSize>0){
-            res.x=x[idx]-x[0];
-            res.y=y[idx]-y[0];
+            res.x=x[idx];
+            res.y=y[idx];
             idx++;
             if(idx>listSize){
                 idx=listSize-1;

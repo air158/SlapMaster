@@ -6,8 +6,11 @@ using UnityEngine.UI;
 public class HitControllor : MonoBehaviour
 {
     public bool useiOS=true;
+    public GameObject debug;
     public UIScaler critb;
     public EventScript ios;
+    public ReadText txt;
+
     public CameraShake cameraShake;
     public MusicController musicController;
     // public CircleScaler HitDet;
@@ -18,15 +21,18 @@ public class HitControllor : MonoBehaviour
     public int speedv=0;
     public float px,py;
     public float dx,dy;
-    public ReadText txt;
+    
     public GameObject hand; //当前物体
     public GameObject targetGo; //目标物体
     public Animator animator;
     public float value,speed;
     public Vector2 screenXY;
-    public Vector2 dxdy;
+    public Vector2 IOSdxdy,TXTdxdy;
     public bool Hit = false,Back=false,txtFlag=false;
     public double HitDis,LeaveDis;
+    public Vector3 worldPos,handPos;
+
+    Camera cam;
     
 
     GameObject HitGo;
@@ -42,6 +48,8 @@ public class HitControllor : MonoBehaviour
     void Awake(){
         initialPosition = hand.transform.position;
         initialRotation = hand.transform.rotation;
+
+        cam=Camera.main;
 
         txt=gameObject.GetComponent<ReadText>();
         // HitDet=gameObject.GetComponent<CircleScaler>();
@@ -136,27 +144,34 @@ public class HitControllor : MonoBehaviour
 
         float w=(float)UnityEngine.Screen.width;
         float h=(float)UnityEngine.Screen.height;
+
+        w=(float)cam.pixelWidth;
+
+        h=(float)cam.pixelHeight;
         
         if(useiOS){
             //ReadFromiOS
             // dx=0f;
-            dxdy=ios.ReaddXdY();
+            IOSdxdy=ios.ReaddXdY();
             // screenXY.x=(w-w*dxdy.x)/dx;
             // screenXY.y=(h*dxdy.y)/dy;
             // screenXY.x=(dxdy.y)/dx+px;
             // screenXY.y=(dxdy.x)/dy+py;
-            screenXY.x=(dxdy.y)/dx+px;
-            screenXY.y=(dxdy.x)/dy+py;
+            screenXY.y=(h*IOSdxdy.x)/dx+px;
+            screenXY.x=(w*IOSdxdy.y)/dy+py;
         }
         else{
             //ReadFromTxt
+            TXTdxdy=new Vector2(txt.x[idx],txt.y[idx]);
             // px=-0.7f;
             // dx=-500;
             // dy=300;
-            // screenXY.x=(w-w*txt.y[idx])/dx;
-            // screenXY.y=(h*txt.x[idx])/dy;
-            screenXY.x=(txt.y[idx]-txt.y[0])/dx+px;
-            screenXY.y=(txt.x[idx]-txt.x[0])/dy+py;
+            screenXY.y=(h*TXTdxdy.x)/dx+px;
+            screenXY.x=(w*TXTdxdy.y)/dy+py;
+
+            // Debug.Log(screenXY+" "+TXTdxdy);
+            // screenXY.x=(txt.x[idx])/dx+px;
+            // screenXY.y=(txt.y[idx])/dy+py;
         }
 
         time++;
@@ -277,13 +292,24 @@ public class HitControllor : MonoBehaviour
     
     Vector3 CalculatePosition(Vector3 target)
     {
-        if(mxX>screenXY.x)screenXY.x=mxX;
-        if(mxY>screenXY.y)screenXY.y=mxY;
-        Vector3 worldPos = new Vector3(screenXY.x, screenXY.y,0)+initialPosition;
+        // if(mxX>screenXY.x)screenXY.x=mxX;
+        // if(mxY>screenXY.y)screenXY.y=mxY;
+        // Vector3 worldPos = new Vector3(screenXY.x, screenXY.y,0)+initialPosition;
+
+        worldPos = cam.ScreenToWorldPoint(new Vector3(screenXY.x, screenXY.y, 1));
+        
         // Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenXY.x, screenXY.y, Camera.main.nearClipPlane))+initialPosition;
+
         float distance = Vector2.Distance(new Vector2(worldPos.x,worldPos.y), new Vector2(target.x,target.y));
-        Vector3 direction = (worldPos - target).normalized;
-        return target + direction * distance;
+        Vector3 direction = (worldPos - target);
+
+        Vector3 force = target+direction*distance*1.5f;
+
+        debug.transform.position=worldPos;
+
+        handPos=force;
+
+        return handPos;
     }
     void handMove(GameObject handGo,Vector3 targetPos){
         float step = speed * Time.deltaTime;

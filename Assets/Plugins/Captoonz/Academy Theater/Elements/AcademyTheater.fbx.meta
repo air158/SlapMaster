@@ -1,0 +1,217 @@
+fileFormatVersion: 2
+guid: 3c304acbebb57ff47a32d4f2a2d43335
+timeCreated: 1478194747
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: AlleeSiegesMezzanine
+    100004: AlleeSiegesMezzanine_001
+    100006: AlleeSiegesMezzanine_002
+    100008: AlleeSiegesMezzanine_003
+    100010: AlleeSiegesMezzanine_004
+    100012: AlleeSiegesMezzanine_005
+    100014: AlleeSiegesMezzanine_006
+    100016: AlleeSiegesMezzanine_007
+    100018: AlleeSiegesMezzanine_008
+    100020: ArcheGrande
+    100022: ArchesSalle
+    100024: ArchesSalle_001
+    100026: ArchesSalle_002
+    100028: ArchesSalle_003
+    100030: Balcons
+    100032: Balcons_001
+    100034: Balcons_002
+    100036: Balcons_003
+    100038: CerclePlafondLuz
+    100040: CerclesPlafon
+    100042: Empty_Teatro
+    100044: EscalerasScena
+    100046: Escena
+    100048: Mezzanines
+    100050: Mezzanines_001
+    100052: Null_TeatroOscar
+    100054: ParedesTeatro
+    100056: Piso
+    100058: RuedasEscena
+    100060: Screen
+    400000: //RootNode
+    400002: AlleeSiegesMezzanine
+    400004: AlleeSiegesMezzanine_001
+    400006: AlleeSiegesMezzanine_002
+    400008: AlleeSiegesMezzanine_003
+    400010: AlleeSiegesMezzanine_004
+    400012: AlleeSiegesMezzanine_005
+    400014: AlleeSiegesMezzanine_006
+    400016: AlleeSiegesMezzanine_007
+    400018: AlleeSiegesMezzanine_008
+    400020: ArcheGrande
+    400022: ArchesSalle
+    400024: ArchesSalle_001
+    400026: ArchesSalle_002
+    400028: ArchesSalle_003
+    400030: Balcons
+    400032: Balcons_001
+    400034: Balcons_002
+    400036: Balcons_003
+    400038: CerclePlafondLuz
+    400040: CerclesPlafon
+    400042: Empty_Teatro
+    400044: EscalerasScena
+    400046: Escena
+    400048: Mezzanines
+    400050: Mezzanines_001
+    400052: Null_TeatroOscar
+    400054: ParedesTeatro
+    400056: Piso
+    400058: RuedasEscena
+    400060: Screen
+    2300000: AlleeSiegesMezzanine
+    2300002: AlleeSiegesMezzanine_001
+    2300004: AlleeSiegesMezzanine_002
+    2300006: AlleeSiegesMezzanine_003
+    2300008: AlleeSiegesMezzanine_004
+    2300010: AlleeSiegesMezzanine_005
+    2300012: AlleeSiegesMezzanine_006
+    2300014: AlleeSiegesMezzanine_007
+    2300016: AlleeSiegesMezzanine_008
+    2300018: ArcheGrande
+    2300020: ArchesSalle
+    2300022: ArchesSalle_001
+    2300024: ArchesSalle_002
+    2300026: ArchesSalle_003
+    2300028: Balcons
+    2300030: Balcons_001
+    2300032: Balcons_002
+    2300034: Balcons_003
+    2300036: CerclePlafondLuz
+    2300038: CerclesPlafon
+    2300040: EscalerasScena
+    2300042: Escena
+    2300044: Mezzanines
+    2300046: Mezzanines_001
+    2300048: ParedesTeatro
+    2300050: Piso
+    2300052: RuedasEscena
+    2300054: Screen
+    3300000: AlleeSiegesMezzanine
+    3300002: AlleeSiegesMezzanine_001
+    3300004: AlleeSiegesMezzanine_002
+    3300006: AlleeSiegesMezzanine_003
+    3300008: AlleeSiegesMezzanine_004
+    3300010: AlleeSiegesMezzanine_005
+    3300012: AlleeSiegesMezzanine_006
+    3300014: AlleeSiegesMezzanine_007
+    3300016: AlleeSiegesMezzanine_008
+    3300018: ArcheGrande
+    3300020: ArchesSalle
+    3300022: ArchesSalle_001
+    3300024: ArchesSalle_002
+    3300026: ArchesSalle_003
+    3300028: Balcons
+    3300030: Balcons_001
+    3300032: Balcons_002
+    3300034: Balcons_003
+    3300036: CerclePlafondLuz
+    3300038: CerclesPlafon
+    3300040: EscalerasScena
+    3300042: Escena
+    3300044: Mezzanines
+    3300046: Mezzanines_001
+    3300048: ParedesTeatro
+    3300050: Piso
+    3300052: RuedasEscena
+    3300054: Screen
+    4300000: Screen
+    4300002: CerclePlafondLuz
+    4300004: CerclesPlafon
+    4300006: ArchesSalle_003
+    4300008: ArchesSalle_002
+    4300010: ArchesSalle_001
+    4300012: ArchesSalle
+    4300014: ArcheGrande
+    4300016: AlleeSiegesMezzanine_008
+    4300018: AlleeSiegesMezzanine_007
+    4300020: AlleeSiegesMezzanine_006
+    4300022: AlleeSiegesMezzanine_005
+    4300024: AlleeSiegesMezzanine_004
+    4300026: AlleeSiegesMezzanine_003
+    4300028: AlleeSiegesMezzanine_002
+    4300030: AlleeSiegesMezzanine_001
+    4300032: AlleeSiegesMezzanine
+    4300034: Escena
+    4300036: ParedesTeatro
+    4300038: Piso
+    4300040: RuedasEscena
+    4300042: Mezzanines
+    4300044: Mezzanines_001
+    4300046: EscalerasScena
+    4300048: Balcons_002
+    4300050: Balcons_001
+    4300052: Balcons
+    4300054: Balcons_003
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 1
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -119,6 +119,7 @@ Material:
     - _MaskCutOut: 1
     - _MaskFade: 0
     - _MaskOffsetFactor: 1
+    - _MaxIndex: 2
     - _Metallic: 0
     - _MixedMove: 0
     - _Mode: 3
@@ -149,6 +150,7 @@ Material:
     - _TexcoordMoveStrength: 2
     - _TexcoordMoveUsingCustom: 0
     - _TextureAnimate: 0
+    - _TextureAnimateAdvanced: 0
     - _TextureAnimateSpeed: 1
     - _TextureAnimateStyle: 1
     - _TextureBlend: 1

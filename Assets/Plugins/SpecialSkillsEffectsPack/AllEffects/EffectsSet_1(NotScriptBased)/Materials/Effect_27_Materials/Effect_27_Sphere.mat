@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Effect_27_Sphere
   m_Shader: {fileID: 4800000, guid: 1d58a8e283100ea4f8435e923e54553e, type: 3}
-  m_ShaderKeywords: IS_NORMAL_ANIMATE IS_NORMAL_DISTORTION IS_SOFT_PARTICLES IS_TEXCOORD_MOVE
-    IS_TEXTURE_ANIMATE IS_UNITY_PARTICLE_INSTANCING_ENABLED _ALPHAPREMULTIPLY_ON
+  m_ShaderKeywords: IS_NORMAL_ANIMATE IS_SOFT_PARTICLES IS_TEXCOORD_MOVE IS_TEXTURE_ANIMATE
+    IS_UNITY_PARTICLE_INSTANCING_ENABLED _ALPHAPREMULTIPLY_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -125,7 +125,7 @@ Material:
     - _NoiseScale: 0
     - _NormalAnimate: 1
     - _NormalAnimateSpeed: 0.15
-    - _NormalDistortion: 1
+    - _NormalDistortion: 0
     - _NormalDistortionFactor: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -133,7 +133,6 @@ Material:
     - _RimLight: 0
     - _RimScale: 4
     - _RimStrength: 2
-    - _SecondColor: 0
     - _SmoothnessTextureChannel: 0
     - _SoftParticle: 1
     - _SoftParticlesEnabled: 0
@@ -170,4 +169,3 @@ Material:
     - _RimColor: {r: 0.21960784, g: 1.8196079, b: 6.6509805, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _TintColor: {r: 8.656186, g: 3.6051176, b: 13.408508, a: 1}
-    - _TintColor2: {r: 1, g: 1, b: 1, a: 1}

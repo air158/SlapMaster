@@ -140,7 +140,6 @@ Material:
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _TexLength: 1
     - _TexPath: 1
     - _TexPosMove: 0.08
     - _TexcoordMove: 0
@@ -148,13 +147,12 @@ Material:
     - _TextureAnimate: 0
     - _TextureAnimateSpeed: 1
     - _TextureAnimateStyle: 1
-    - _TextureBlend: 0
+    - _TextureBlend: 1
     - _TextureNoise: 0
     - _UVSec: 0
     - _UseTexAnimation: 0
     - _VertexAnimation: 0
     - _ZTest1: 5
-    - _ZTest2: 2
     - _ZWrite: 0
     - _xTexcoordMove: 1
     - _yTexcoordMove: 1
@@ -167,4 +165,3 @@ Material:
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _TintColor: {r: 0.13598749, g: 1.0157844, b: 9.6098, a: 1}
-    - _TintColor2: {r: 1, g: 1, b: 1, a: 1}

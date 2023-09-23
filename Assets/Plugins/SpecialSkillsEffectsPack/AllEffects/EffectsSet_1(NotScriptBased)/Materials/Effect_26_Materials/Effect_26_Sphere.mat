@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Effect_26_Sphere
   m_Shader: {fileID: 4800000, guid: 1d58a8e283100ea4f8435e923e54553e, type: 3}
-  m_ShaderKeywords: IS_NORMAL_ANIMATE IS_NORMAL_DISTORTION IS_SOFT_PARTICLES IS_TEXCOORD_MOVE
-    IS_TEXTURE_ANIMATE IS_UNITY_PARTICLE_INSTANCING_ENABLED _ALPHAPREMULTIPLY_ON
+  m_ShaderKeywords: IS_NORMAL_ANIMATE IS_SOFT_PARTICLES IS_TEXCOORD_MOVE IS_TEXTURE_ANIMATE
+    IS_UNITY_PARTICLE_INSTANCING_ENABLED _ALPHAPREMULTIPLY_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -125,7 +125,7 @@ Material:
     - _NoiseScale: 0
     - _NormalAnimate: 1
     - _NormalAnimateSpeed: 0.15
-    - _NormalDistortion: 1
+    - _NormalDistortion: 0
     - _NormalDistortionFactor: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -140,6 +140,7 @@ Material:
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _TexLength: 1
     - _TexPath: 1
     - _TexPosMove: -1
     - _TexcoordMove: 1

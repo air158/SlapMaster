@@ -9,12 +9,12 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Effect_12_Sphere_6
   m_Shader: {fileID: 4800000, guid: 1d58a8e283100ea4f8435e923e54553e, type: 3}
-  m_ShaderKeywords: IS_NORMAL_ANIMATE IS_NORMAL_DISTORTION IS_RIMLIGHT IS_SOFT_PARTICLES
-    IS_TEXTURE_ANIMATE IS_UNITY_PARTICLE_INSTANCING_ENABLED _ALPHAPREMULTIPLY_ON
+  m_ShaderKeywords: IS_NORMAL_ANIMATE IS_RIMLIGHT IS_SOFT_PARTICLES IS_TEXTURE_ANIMATE
+    IS_UNITY_PARTICLE_INSTANCING_ENABLED _ALPHAPREMULTIPLY_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3001
+  m_CustomRenderQueue: 3003
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -109,7 +109,6 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Impact: 0
-    - _ImpactFactor: 1
     - _ImpactSize: 0.5
     - _InvFade: 1
     - _Lighting: 0
@@ -126,7 +125,7 @@ Material:
     - _NoiseScale: 0
     - _NormalAnimate: 1
     - _NormalAnimateSpeed: 0.15
-    - _NormalDistortion: 1
+    - _NormalDistortion: 0
     - _NormalDistortionFactor: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -134,7 +133,6 @@ Material:
     - _RimLight: 1
     - _RimScale: 15
     - _RimStrength: 50
-    - _SecondColor: 0
     - _SmoothnessTextureChannel: 0
     - _SoftParticle: 1
     - _SoftParticlesEnabled: 0
@@ -147,7 +145,6 @@ Material:
     - _TexPosMove: -1
     - _TexcoordMove: 0
     - _TexcoordMoveStrength: 5
-    - _TexcoordMoveUsingCustom: 0
     - _TextureAnimate: 1
     - _TextureAnimateSpeed: 1
     - _TextureAnimateStyle: 2
@@ -172,4 +169,3 @@ Material:
     - _RimColor: {r: 12.737255, g: 0.1254902, b: 0, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _TintColor: {r: 10.076063, g: 0.29860872, b: 0.14258555, a: 0.15686275}
-    - _TintColor2: {r: 1, g: 1, b: 1, a: 1}

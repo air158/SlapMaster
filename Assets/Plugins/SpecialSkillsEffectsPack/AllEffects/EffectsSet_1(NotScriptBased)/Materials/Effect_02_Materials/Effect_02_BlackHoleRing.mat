@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Effect_02_BlackHoleRing
   m_Shader: {fileID: 4800000, guid: 1d58a8e283100ea4f8435e923e54553e, type: 3}
-  m_ShaderKeywords: IS_NORMAL_ANIMATE IS_NORMAL_DISTORTION IS_SOFT_PARTICLES IS_TEXCOORD_MOVE
-    IS_TEXTURE_ANIMATE IS_UNITY_PARTICLE_INSTANCING_ENABLED
+  m_ShaderKeywords: IS_NORMAL_ANIMATE IS_SOFT_PARTICLES IS_TEXCOORD_MOVE IS_TEXTURE_ANIMATE
+    IS_UNITY_PARTICLE_INSTANCING_ENABLED
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -88,7 +88,7 @@ Material:
     - _BlendDst: 1
     - _BlendSrc: 5
     - _BumpScale: 1
-    - _ColorFactor: 7.5
+    - _ColorFactor: 2.5
     - _Culling: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -112,7 +112,7 @@ Material:
     - _NoiseScale: 1
     - _NormalAnimate: 1
     - _NormalAnimateSpeed: 1
-    - _NormalDistortion: 1
+    - _NormalDistortion: 0
     - _NormalDistortionFactor: 0.5
     - _OcclusionStrength: 1
     - _Parallax: 0.02
@@ -120,7 +120,6 @@ Material:
     - _RimLight: 0
     - _RimScale: 1
     - _RimStrength: 1
-    - _SecondColor: 0
     - _SmoothnessTextureChannel: 0
     - _SoftParticle: 1
     - _SpecularHighlights: 1
@@ -148,5 +147,4 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _NoiseValue: {r: 1, g: 1, b: 1, a: 0}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
-    - _TintColor: {r: 2.9960785, g: 2.6666667, b: 1.6941177, a: 1}
-    - _TintColor2: {r: 1, g: 1, b: 1, a: 1}
+    - _TintColor: {r: 7.9245276, g: 7.0532446, b: 4.4808846, a: 1}

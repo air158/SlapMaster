@@ -1,0 +1,7 @@
+Captoonz 2017
+Academy Theater V1.1
+
+Second release. Added LOD system for the seats, for greater quality and rendering speed. First version was 1.4 millions tris, this one only 380 k.
+
+
+Thank you to purchase this asset. We hope you'll enjoy it.

@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Effect_15_Shockwave
   m_Shader: {fileID: 4800000, guid: 1d58a8e283100ea4f8435e923e54553e, type: 3}
-  m_ShaderKeywords: IS_NORMAL_ANIMATE IS_NORMAL_DISTORTION IS_SOFT_PARTICLES IS_TEXTURE_BLEND
-    IS_UNITY_PARTICLE_INSTANCING_ENABLED _ALPHAPREMULTIPLY_ON
+  m_ShaderKeywords: IS_NORMAL_ANIMATE IS_SOFT_PARTICLES IS_TEXTURE_BLEND IS_UNITY_PARTICLE_INSTANCING_ENABLED
+    _ALPHAPREMULTIPLY_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -125,7 +125,7 @@ Material:
     - _NoiseScale: 1
     - _NormalAnimate: 1
     - _NormalAnimateSpeed: 0.1
-    - _NormalDistortion: 1
+    - _NormalDistortion: 0
     - _NormalDistortionFactor: 0.02
     - _OcclusionStrength: 1
     - _Parallax: 0.02

@@ -98,7 +98,6 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Impact: 0
-    - _ImpactFactor: 2
     - _ImpactSize: 0.75
     - _InvFade: 1
     - _LinePass: 0

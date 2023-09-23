@@ -49,7 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9064114c999c2ed468fef5ddd82bd85d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 28182757501a73648a5374de4d2b14cb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskDistortion:
@@ -109,7 +109,6 @@ Material:
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Impact: 0
-    - _ImpactFactor: 1
     - _ImpactSize: 0.5
     - _InvFade: 1
     - _Lighting: 0
@@ -134,7 +133,6 @@ Material:
     - _RimLight: 0
     - _RimScale: 1
     - _RimStrength: 1
-    - _SecondColor: 0
     - _SmoothnessTextureChannel: 0
     - _SoftParticle: 1
     - _SoftParticlesEnabled: 0
@@ -142,12 +140,10 @@ Material:
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _TexLength: 1
     - _TexPath: 1
     - _TexPosMove: 0.08
     - _TexcoordMove: 0
     - _TexcoordMoveStrength: 2
-    - _TexcoordMoveUsingCustom: 0
     - _TextureAnimate: 0
     - _TextureAnimateSpeed: 1
     - _TextureAnimateStyle: 1
@@ -170,4 +166,3 @@ Material:
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _TintColor: {r: 2.9960785, g: 0.17254902, b: 0, a: 1}
-    - _TintColor2: {r: 1, g: 1, b: 1, a: 1}

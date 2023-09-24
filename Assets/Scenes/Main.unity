@@ -626,6 +626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf083359060d894db075a31757674d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelId: 1
 --- !u!114 &520755561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -778,7 +779,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Name
+  m_Text: Box
 --- !u!222 &540950397
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1793,7 +1794,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Name
+  m_Text: Academy
 --- !u!222 &1597563972
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2008,6 +2009,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf083359060d894db075a31757674d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelId: 2
 --- !u!114 &1669900996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2460,6 +2462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf083359060d894db075a31757674d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelId: 3
 --- !u!114 &1706819029
 MonoBehaviour:
   m_ObjectHideFlags: 0

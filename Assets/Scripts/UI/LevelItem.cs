@@ -9,7 +9,7 @@ public class LevelItem : MonoBehaviour
     /// <summary>
     /// 关卡ID
     /// </summary>
-    private int LevelId;
+    public int LevelId=0;
     /// <summary>
     /// 创建按钮
     /// </summary>
@@ -52,7 +52,7 @@ public class LevelItem : MonoBehaviour
     {
         //场景加载，进入关卡
         //确保BuildSetting中的场景编号没有问题
-        SceneManager.LoadScene(LevelId);
+        // SceneManager.LoadScene(LevelId);
         StartCoroutine(LoadYourAsyncScene());
     }
     IEnumerator LoadYourAsyncScene()
@@ -62,7 +62,7 @@ public class LevelItem : MonoBehaviour
         // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
         // a sceneBuildIndex of 1 as shown in Build Settings.
 
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Box");
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(LevelId);
 
         // Wait until the asynchronous scene fully loads
         while (!asyncLoad.isDone)
